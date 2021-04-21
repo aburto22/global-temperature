@@ -1,6 +1,6 @@
-const w = 850;
+const w = 1010;
 const h = 500;
-const paddingX = 175;
+const paddingX = 155;
 const paddingTop = 50;
 const paddingBottom = 175;
 
@@ -17,7 +17,8 @@ const svg = d3
   .select("#container")
   .append("svg")
   .attr("width", w)
-  .attr("height", h);
+  .attr("height", h)
+  .attr("viewBox", `0 0 ${w} ${h}`);
 
 fetch(
   "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json"
@@ -101,7 +102,8 @@ fetch(
       .attr("fill", (d) => getColor(d.temperature))
       .on("mouseover", (e, d) => {
         const self = d3.select(e.target);
-        self.attr("stroke", "black");
+        self.attr("fill", "white");
+        const mouse = d3.pointer(e);
 
         const localData = [
           `Year: ${formatYear(d.year)}`,
@@ -110,7 +112,8 @@ fetch(
         ];
 
         tooltip
-          .style("opacity", 1)
+          .attr("transform", `translate(${mouse[0] + 10}, ${mouse[1] - 30})`)
+          .style("display", "block")
           .attr("data-year", self.attr("data-year"))
           .selectAll("text")
           .data(localData)
@@ -118,9 +121,9 @@ fetch(
       })
       .on("mouseout", (e, d) => {
         const self = d3.select(e.target);
-        self.attr("stroke", "none");
+        self.attr("fill", (d) => getColor(d.temperature));
 
-        tooltip.style("opacity", 0).attr("data-year", "");
+        tooltip.style("display", "none").attr("data-year", "");
       });
 
     const xAxis = d3.axisBottom(xScale);
@@ -215,7 +218,10 @@ fetch(
       )
       .attr("fill", "black");
 
-    const tooltip = svg.append("g").attr("id", "tooltip").style("opacity", 0);
+    const tooltip = svg
+      .append("g")
+      .attr("id", "tooltip")
+      .style("display", "none");
 
     tooltip
       .append("rect")
@@ -230,12 +236,4 @@ fetch(
     tooltip.append("text").attr("x", 10).attr("y", 37).attr("fill", "white");
 
     tooltip.append("text").attr("x", 10).attr("y", 54).attr("fill", "white");
-
-    svg.on("mousemove", (e) => {
-      const mouse = d3.pointer(e);
-      tooltip.attr(
-        "transform",
-        `translate(${mouse[0] + 10}, ${mouse[1] - 30})`
-      );
-    });
   });
