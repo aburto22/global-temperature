@@ -2,7 +2,7 @@ const w = 1010;
 const h = 500;
 const paddingX = 155;
 const paddingTop = 50;
-const paddingBottom = 175;
+const paddingBottom = 200;
 
 d3.select("#root")
   .append("div")
@@ -117,11 +117,21 @@ fetch(
           .attr("data-year", self.attr("data-year"))
           .selectAll("text")
           .data(localData)
-          .html((d) => d);
+          .html((val) => val);
+
+        const tooltipTextWidth = d3.max(
+          localData.map((val, i) =>
+            Math.ceil(
+              Number(document.querySelector("#tooltip-" + i).getBBox().width)
+            )
+          )
+        );
+
+        tooltip.select("rect").attr("width", tooltipTextWidth + 25);
       })
       .on("mouseout", (e, d) => {
         const self = d3.select(e.target);
-        self.attr("fill", (d) => getColor(d.temperature));
+        self.attr("fill", getColor(d.temperature));
 
         tooltip.style("display", "none").attr("data-year", "");
       });
@@ -194,7 +204,7 @@ fetch(
       .attr("object-anchor", "middle")
       .attr(
         "transform",
-        `translate(${(w - legendTotalWidth) / 2}, ${h - paddingBottom + 75})`
+        `translate(${(w - legendTotalWidth) / 2}, ${h - paddingBottom + 125})`
       );
 
     legend
@@ -218,6 +228,24 @@ fetch(
       )
       .attr("fill", "black");
 
+    legend
+      .selectAll("line")
+      .data(colorData)
+      .join("line")
+      .attr("x1", (d, i) => i * legendWidth)
+      .attr("x2", (d, i) => i * legendWidth)
+      .attr("y1", 0)
+      .attr("y2", 25)
+      .attr("stroke", "rgba(0, 0, 0, 0.5)");
+
+    legend
+      .append("text")
+      .text("Temperature: ")
+      .attr("font-weight", "bold")
+      .attr("text-anchor", "middle")
+      .attr("x", legendTotalWidth / 2)
+      .attr("y", -10);
+
     const tooltip = svg
       .append("g")
       .attr("id", "tooltip")
@@ -231,9 +259,24 @@ fetch(
       .attr("ry", 10)
       .attr("fill", "rgba(150, 150, 150, 0.85)");
 
-    tooltip.append("text").attr("x", 10).attr("y", 20).attr("fill", "white");
+    tooltip
+      .append("text")
+      .attr("x", 10)
+      .attr("y", 20)
+      .attr("fill", "white")
+      .attr("id", "tooltip-0");
 
-    tooltip.append("text").attr("x", 10).attr("y", 37).attr("fill", "white");
+    tooltip
+      .append("text")
+      .attr("x", 10)
+      .attr("y", 37)
+      .attr("fill", "white")
+      .attr("id", "tooltip-1");
 
-    tooltip.append("text").attr("x", 10).attr("y", 54).attr("fill", "white");
+    tooltip
+      .append("text")
+      .attr("x", 10)
+      .attr("y", 54)
+      .attr("fill", "white")
+      .attr("id", "tooltip-2");
   });
