@@ -12,10 +12,10 @@ body {
   font-family: 'Open Sans', sans-serif;
   background: radial-gradient(farthest-corner at 50% 60%, rgb(186, 255, 169), rgb(184, 255, 125));
   background-attachment: fixed;
+  min-height: 100vh;
 }
 
 #root {
-  height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -39,4 +39,10 @@ body {
     font-size: 1.5rem;
     text-align: center;
   }
+}
+
+footer {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 2rem;
 }

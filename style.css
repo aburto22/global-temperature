@@ -12,10 +12,10 @@ body {
   font-family: "Open Sans", sans-serif;
   background: radial-gradient(farthest-corner at 50% 60%, #baffa9, #b8ff7d);
   background-attachment: fixed;
+  min-height: 100vh;
 }
 
 #root {
-  height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -36,6 +36,12 @@ body {
 #container h2 {
   font-size: 1.5rem;
   text-align: center;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */
