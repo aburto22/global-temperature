@@ -4,17 +4,10 @@ const paddingX = 155;
 const paddingTop = 50;
 const paddingBottom = 200;
 
-d3.select("#root")
-  .append("div")
-  .attr("id", "container")
-  .append("h1")
-  .attr("id", "title")
-  .text("Earth global temperature");
-
-d3.select("#container").append("h2").attr("id", "description");
+d3.select("main").append("h2").attr("id", "description");
 
 const svg = d3
-  .select("#container")
+  .select("main")
   .append("svg")
   .attr("width", w)
   .attr("height", h)
