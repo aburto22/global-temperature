@@ -12,6 +12,9 @@ body {
   font-family: "Open Sans", sans-serif;
   background: radial-gradient(farthest-corner at 50% 60%, #baffa9, #b8ff7d);
   background-attachment: fixed;
+}
+
+#container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
