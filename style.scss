@@ -26,17 +26,16 @@ body {
 
 main {
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
 
   svg {
     max-width: 100%;
     height: auto;
     margin: auto;
+    display: block;
   }
 
   h2 {
-    font-size: min(4vw, 2.5rem);
+    font-size: min(4vw, 1.5rem);
     text-align: center;
   }
 }
